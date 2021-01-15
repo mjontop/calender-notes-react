@@ -52,12 +52,14 @@ const AddTask = (date, title = '', notes = '') => {
 		notes: ''
 	};
 	let tasksFromStorage = JSON.parse(localStorage.getItem('tasks'));
-
-	for (let index = 0; index < tasksFromStorage.length; index += 1) {
-		if (tasksFromStorage[index].date.slice(0, 10) === JSON.stringify(date).slice(1, 11)) {
-			return '';
+	if (tasksFromStorage) {
+		for (let index = 0; index < tasksFromStorage.length; index += 1) {
+			if (tasksFromStorage[index].date.slice(0, 10) === JSON.stringify(date).slice(1, 11)) {
+				return '';
+			}
 		}
 	}
+
 	const handleSubmit = () => {
 		let tasksFromStorage = JSON.parse(localStorage.getItem('tasks'));
 		console.log(tasksFromStorage);
@@ -141,11 +143,12 @@ const taskDisplayBoard = (todaystask) => {
 const editTask = (date) => {
 	let tasksFromStorage = JSON.parse(localStorage.getItem('tasks'));
 	let tasksFromStorageToday = {};
-
-	for (let index = 0; index < tasksFromStorage.length; index += 1) {
-		if (tasksFromStorage[index].date.slice(0, 10) === JSON.stringify(date).slice(1, 11)) {
-			tasksFromStorageToday.title = tasksFromStorage[index].title;
-			tasksFromStorageToday.notes = tasksFromStorage[index].notes;
+	if (tasksFromStorage) {
+		for (let index = 0; index < tasksFromStorage.length; index += 1) {
+			if (tasksFromStorage[index].date.slice(0, 10) === JSON.stringify(date).slice(1, 11)) {
+				tasksFromStorageToday.title = tasksFromStorage[index].title;
+				tasksFromStorageToday.notes = tasksFromStorage[index].notes;
+			}
 		}
 	}
 
